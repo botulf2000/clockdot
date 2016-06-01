@@ -52,7 +52,7 @@ static void canvas_update_proc(Layer *layer, GContext *ctx) {
   
   int x,y;
   int midpoint=bounds.size.w/2;
-  int adjusted_minutes=90-((minutes+2)/5)*5*6;
+  int adjusted_minutes=90-((minutes)/5)*5*6;
   x=midpoint+cos(3.14*adjusted_minutes/180)*(5*midpoint/8);
   y=midpoint-sin(3.14*adjusted_minutes/180)*(5*midpoint/8);
   GPoint center = GPoint(x, y);
@@ -102,7 +102,7 @@ static void main_window_load(Window *window) {
   text_layer_set_text_alignment(s_time_layer, GTextAlignmentCenter);
 
   // Create GFont
-  s_time_font = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_VIPER_SOLID_48));
+  s_time_font = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_AW_48));
 
   // Apply to TextLayer
   text_layer_set_font(s_time_layer, s_time_font);
