@@ -1,0 +1,55 @@
+{
+    "appKeys": {},
+    "capabilities": [
+        ""
+    ],
+    "companyName": "kristerjonsson",
+    "enableMultiJS": false,
+    "longName": "Tutorial-2-2",
+    "projectType": "native",
+    "resources": {
+        "media": [
+            {
+                "file": "images/bakgrund.png",
+                "name": "IMAGE_BILD",
+                "targetPlatforms": null,
+                "type": "bitmap"
+            },
+            {
+                "file": "images/bild2.png",
+                "name": "IMAGE_BILD_2",
+                "targetPlatforms": null,
+                "type": "bitmap"
+            },
+            {
+                "file": "fonts/SFViperSquadronSolid.ttf",
+                "name": "FONT_VIPER_SOLID_20",
+                "targetPlatforms": null,
+                "type": "font"
+            },
+            {
+                "file": "fonts/SFViperSquadronSolid.ttf",
+                "name": "FONT_VIPER_SOLID_40",
+                "targetPlatforms": null,
+                "type": "font"
+            },
+            {
+                "file": "images/background.png",
+                "name": "IMAGE_BACKGROUND",
+                "type": "bitmap"
+            }
+        ]
+    },
+    "sdkVersion": "3",
+    "shortName": "Tutorial-2-2",
+    "targetPlatforms": [
+        "aplite",
+        "basalt",
+        "chalk"
+    ],
+    "uuid": "33524faf-f296-442e-bb85-a298e82804ae",
+    "versionLabel": "1.0",
+    "watchapp": {
+        "watchface": true
+    }
+}
