@@ -52,9 +52,9 @@ static void canvas_update_proc(Layer *layer, GContext *ctx) {
   
   int x,y;
   int midpoint=bounds.size.w/2;
-  int adjusted_minutes=90-((minutes)/5)*5*6;
-  x=midpoint+cos(3.14*adjusted_minutes/180)*(5*midpoint/8);
-  y=midpoint-sin(3.14*adjusted_minutes/180)*(5*midpoint/8);
+  int adjusted_minutes=90-minutes*6;
+  x=midpoint+cos(3.14*adjusted_minutes/180)*(4*midpoint/5);
+  y=midpoint-sin(3.14*adjusted_minutes/180)*(4*midpoint/5);
   GPoint center = GPoint(x, y);
   uint16_t radius = midpoint/4;
 
@@ -97,7 +97,7 @@ static void main_window_load(Window *window) {
 
   // Improve the layout to be more like a watchface
   text_layer_set_background_color(s_time_layer, GColorClear);
-  text_layer_set_text_color(s_time_layer, GColorCadetBlue);
+  text_layer_set_text_color(s_time_layer, GColorWhite);
   text_layer_set_text(s_time_layer, "0");
   text_layer_set_text_alignment(s_time_layer, GTextAlignmentCenter);
 
@@ -132,7 +132,7 @@ static void init() {
   s_main_window = window_create();
 
   // Set the background color
-  window_set_background_color(s_main_window, GColorMidnightGreen);
+  window_set_background_color(s_main_window, GColorOxfordBlue);
 
   // Set handlers to manage the elements inside the Window
   window_set_window_handlers(s_main_window, (WindowHandlers) {
@@ -148,7 +148,6 @@ static void init() {
 
   // Register with TickTimerService
   tick_timer_service_subscribe(MINUTE_UNIT, tick_handler);
-  minutes=0;
 }
 
 static void deinit() {
