@@ -5,10 +5,10 @@ static Window *s_main_window;
 static TextLayer *s_time_layer;
 
 static BitmapLayer *s_background_layer;
-static GBitmap *s_background_bitmap;
+//static GBitmap *s_background_bitmap;
 
 static GFont s_time_font;
-static GFont s_date_font;
+//static GFont s_date_font;
 
 static Layer *s_canvas_layer;
 static int minutes, hours;
@@ -20,7 +20,6 @@ static void update_time() {
   struct tm *tick_time = localtime(&temp);
   ts=*localtime(&temp);
   minutes=ts.tm_min;
-  //minutes=(minutes+15)%60;
   hours=ts.tm_hour;
   
   
@@ -29,7 +28,6 @@ static void update_time() {
   snprintf(s_buffer,3, "%d", hours);
   // Display this time on the TextLayer
   text_layer_set_text(s_time_layer, s_buffer);
-  
    
   layer_mark_dirty(s_canvas_layer);
 }
@@ -49,8 +47,8 @@ static void canvas_update_proc(Layer *layer, GContext *ctx) {
   int midpoint=bounds.size.w/2;
   int adjusted_minutes=90-((minutes+2)/5)*5*6;
   //printf("Mid: %d Minutes: %d", midpoint, adjusted_minutes);
-  x=midpoint+cos(3.14*adjusted_minutes/180)*(3*midpoint/4);
-  y=midpoint-sin(3.14*adjusted_minutes/180)*(3*midpoint/4);
+  x=midpoint+cos(3.14*adjusted_minutes/180)*(5*midpoint/8);
+  y=midpoint-sin(3.14*adjusted_minutes/180)*(5*midpoint/8);
   printf("minutes: %d x: %d y:%d",adjusted_minutes, x,y);
   GPoint center = GPoint(x, y);
   uint16_t radius = midpoint/4;
@@ -71,19 +69,7 @@ static void main_window_load(Window *window) {
   Layer *window_layer = window_get_root_layer(window);
   GRect bounds = layer_get_bounds(window_layer);
 
-  // Create GBitmap
-//  s_background_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_BILD);
-
-  // Create BitmapLayer to display the GBitmap
-  //s_background_layer = bitmap_layer_create(bounds);
-
-  // Set the bitmap onto the layer and add to the window
-  //bitmap_layer_set_bitmap(s_background_layer, s_background_bitmap);
-  //layer_add_child(window_layer, bitmap_layer_get_layer(s_background_layer));
-  
-  //Canvas for drawing
-//  GRect bounds = layer_get_bounds(window_get_root_layer(window));
-
+ 
   // Create canvas layer
   s_canvas_layer = layer_create(bounds);
   
@@ -101,11 +87,11 @@ static void main_window_load(Window *window) {
   // Improve the layout to be more like a watchface
   text_layer_set_background_color(s_time_layer, GColorClear);
   text_layer_set_text_color(s_time_layer, GColorBlack);
-  text_layer_set_text(s_time_layer, "00:00");
+  text_layer_set_text(s_time_layer, "0");
   text_layer_set_text_alignment(s_time_layer, GTextAlignmentCenter);
 
   // Create GFont
-  s_time_font = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_VIPER_SOLID_40));
+  s_time_font = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_VIPER_SOLID_48));
 
   // Apply to TextLayer
   text_layer_set_font(s_time_layer, s_time_font);
@@ -124,7 +110,7 @@ static void main_window_unload(Window *window) {
   fonts_unload_custom_font(s_time_font);
 
   // Destroy GBitmap
-  gbitmap_destroy(s_background_bitmap);
+//  gbitmap_destroy(s_background_bitmap);
 
   // Destroy BitmapLayer
   bitmap_layer_destroy(s_background_layer);

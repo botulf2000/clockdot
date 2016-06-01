@@ -23,13 +23,13 @@
             },
             {
                 "file": "fonts/SFViperSquadronSolid.ttf",
-                "name": "FONT_VIPER_SOLID_20",
+                "name": "FONT_VIPER_SOLID_48",
                 "targetPlatforms": null,
                 "type": "font"
             },
             {
                 "file": "fonts/SFViperSquadronSolid.ttf",
-                "name": "FONT_VIPER_SOLID_40",
+                "name": "FONT_VIPER_SOLID_24",
                 "targetPlatforms": null,
                 "type": "font"
             },
