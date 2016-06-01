@@ -5,7 +5,7 @@
     ],
     "companyName": "kristerjonsson",
     "enableMultiJS": false,
-    "longName": "Tutorial-2-2",
+    "longName": "ClockDot",
     "projectType": "native",
     "resources": {
         "media": [
@@ -41,7 +41,7 @@
         ]
     },
     "sdkVersion": "3",
-    "shortName": "Tutorial-2-2",
+    "shortName": "CDot",
     "targetPlatforms": [
         "aplite",
         "basalt",

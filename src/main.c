@@ -17,20 +17,27 @@ static struct tm ts;
 static void update_time() {
   // Get a tm structure
   time_t temp = time(NULL); 
-  struct tm *tick_time = localtime(&temp);
   ts=*localtime(&temp);
-  minutes=ts.tm_min;
-  hours=ts.tm_hour;
+  if(minutes!=ts.tm_min)
+  {
+    minutes=ts.tm_min;
+    layer_mark_dirty(s_canvas_layer);
+
+  }
+  
+  if(hours!=ts.tm_hour)
+  {
+    hours=ts.tm_hour;  
+    // Write the current hours and minutes into a buffer
+    static char s_buffer[3];
+    snprintf(s_buffer,3, "%d", hours);
+    // Display this time on the TextLayer
+    text_layer_set_text(s_time_layer, s_buffer);
+  }
   
   
-  // Write the current hours and minutes into a buffer
-  static char s_buffer[3];
-  snprintf(s_buffer,3, "%d", hours);
-  // Display this time on the TextLayer
-  text_layer_set_text(s_time_layer, s_buffer);
    
-  layer_mark_dirty(s_canvas_layer);
-}
+  }
 
 static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
   update_time();
@@ -46,20 +53,24 @@ static void canvas_update_proc(Layer *layer, GContext *ctx) {
   int x,y;
   int midpoint=bounds.size.w/2;
   int adjusted_minutes=90-((minutes+2)/5)*5*6;
-  //printf("Mid: %d Minutes: %d", midpoint, adjusted_minutes);
   x=midpoint+cos(3.14*adjusted_minutes/180)*(5*midpoint/8);
   y=midpoint-sin(3.14*adjusted_minutes/180)*(5*midpoint/8);
-  printf("minutes: %d x: %d y:%d",adjusted_minutes, x,y);
   GPoint center = GPoint(x, y);
   uint16_t radius = midpoint/4;
 
   // Draw the outline of a circle
-  graphics_context_set_stroke_color(ctx, GColorDukeBlue);
+  graphics_context_set_stroke_color(ctx, GColorCadetBlue);
   graphics_draw_circle(ctx, center, radius);
 
   // Fill a circle
   graphics_context_set_fill_color(ctx, GColorCadetBlue);
   graphics_fill_circle(ctx, center, radius);
+  
+  radius=radius/4;
+  center = GPoint(x-6, y-6);
+  graphics_context_set_fill_color(ctx, GColorCeleste);
+  graphics_fill_circle(ctx, center, radius);
+  
 
 }
 
@@ -86,7 +97,7 @@ static void main_window_load(Window *window) {
 
   // Improve the layout to be more like a watchface
   text_layer_set_background_color(s_time_layer, GColorClear);
-  text_layer_set_text_color(s_time_layer, GColorBlack);
+  text_layer_set_text_color(s_time_layer, GColorCadetBlue);
   text_layer_set_text(s_time_layer, "0");
   text_layer_set_text_alignment(s_time_layer, GTextAlignmentCenter);
 
@@ -109,9 +120,8 @@ static void main_window_unload(Window *window) {
   // Unload GFont
   fonts_unload_custom_font(s_time_font);
 
-  // Destroy GBitmap
-//  gbitmap_destroy(s_background_bitmap);
-
+  
+  
   // Destroy BitmapLayer
   bitmap_layer_destroy(s_background_layer);
 }
@@ -122,7 +132,7 @@ static void init() {
   s_main_window = window_create();
 
   // Set the background color
-  window_set_background_color(s_main_window, GColorWhite);
+  window_set_background_color(s_main_window, GColorMidnightGreen);
 
   // Set handlers to manage the elements inside the Window
   window_set_window_handlers(s_main_window, (WindowHandlers) {
