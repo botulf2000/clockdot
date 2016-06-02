@@ -51,12 +51,13 @@ static void canvas_update_proc(Layer *layer, GContext *ctx) {
   GRect bounds = layer_get_bounds(window_layer);
   
   int x,y;
-  int midpoint=bounds.size.w/2;
+  int midpoint_x=bounds.size.w/2;
+  int midpoint_y=bounds.size.h/2;
   int adjusted_minutes=90-minutes*6;
-  x=midpoint+cos(3.14*adjusted_minutes/180)*(4*midpoint/5);
-  y=midpoint-sin(3.14*adjusted_minutes/180)*(4*midpoint/5);
+  x=midpoint_x+cos(3.14*adjusted_minutes/180)*(3*midpoint_x/5);
+  y=midpoint_y-sin(3.14*adjusted_minutes/180)*(3*midpoint_y/5);
   GPoint center = GPoint(x, y);
-  uint16_t radius = midpoint/4;
+  uint16_t radius = midpoint_x/4;
 
   // Draw the outline of a circle
   graphics_context_set_stroke_color(ctx, GColorCadetBlue);
