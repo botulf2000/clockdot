@@ -4,7 +4,7 @@
 static Window *s_main_window;
 static TextLayer *s_time_layer;
 
-static BitmapLayer *s_background_layer;
+//static BitmapLayer *s_background_layer;
 //static GBitmap *s_background_bitmap;
 
 static GFont s_time_font;
@@ -120,11 +120,11 @@ static void main_window_unload(Window *window) {
 
   // Unload GFont
   fonts_unload_custom_font(s_time_font);
-
+  layer_destroy(s_canvas_layer);
   
   
   // Destroy BitmapLayer
-  bitmap_layer_destroy(s_background_layer);
+//  bitmap_layer_destroy(s_background_layer);
 }
 
 
@@ -153,6 +153,10 @@ static void init() {
 
 static void deinit() {
   // Destroy Window
+  
+  text_layer_destroy(s_time_layer);
+  layer_destroy(s_canvas_layer);
+  fonts_unload_custom_font(s_time_font);
   window_destroy(s_main_window);
 }
 
